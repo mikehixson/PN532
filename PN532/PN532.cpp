@@ -1430,3 +1430,23 @@ int8_t PN532::felica_Release()
 
   return 1;
 }
+
+int8_t PN532::GetGeneralStatus()
+{    
+  pn532_packetbuffer[0] = PN532_COMMAND_GETGENERALSTATUS;
+
+  if (HAL(writeCommand)(pn532_packetbuffer, 1)) {
+    DMSG("No ACK\n");
+    return -1;  // no ACK
+  }
+
+  // Wait card response
+  int16_t frameLength = HAL(readResponse)(pn532_packetbuffer, sizeof(pn532_packetbuffer), 1000);
+  if (frameLength < 0) {
+    DMSG("Could not receive response\n");
+    return -2;
+  }
+
+
+  return 1;
+}

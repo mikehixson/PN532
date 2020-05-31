@@ -194,6 +194,9 @@ public:
         return pn532_packetbuffer;
     };
 
+
+    int8_t GetGeneralStatus();
+
 private:
     uint8_t _uid[7];  // ISO14443A uid
     uint8_t _uidLen;  // uid len
